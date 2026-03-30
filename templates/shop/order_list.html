@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}My Orders - BagLuxe{% endblock %}
+{% block content %}
+
+<div class="page-hero">
+  <div class="container">
+    <h1 class="section-title"><i class="bi bi-box-seam me-2"></i>My Orders</h1>
+  </div>
+</div>
+
+<div class="container py-5">
+  {% if orders %}
+  <div class="row g-3">
+    {% for order in orders %}
+    <div class="col-12">
+      <div class="dashboard-card d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+          <p class="mb-0 fw-bold" style="font-family:'Playfair Display',serif;">Order #{{ order.id }}</p>
+          <p class="text-muted small mb-0">{{ order.created_at|date:"F j, Y" }}</p>
+        </div>
+        <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+        <div>
+          <p class="mb-0 fw-bold" style="color:var(--pink-dark);">${{ order.total_price }}</p>
+          <p class="text-muted small mb-0">{{ order.items.count }} item{{ order.items.count|pluralize }}</p>
+        </div>
+        <a href="/orders/{{ order.id }}/" class="btn btn-outline-pink btn-sm">View Details</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="text-center py-5">
+    <div style="font-size:4rem;color:var(--pink-light);">&#128230;</div>
+    <h5 class="mt-3 text-muted">No orders yet</h5>
+    <a href="/products/" class="btn btn-pink mt-3">Start Shopping</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

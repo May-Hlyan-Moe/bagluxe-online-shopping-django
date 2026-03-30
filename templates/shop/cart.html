@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}My Bag - BagLuxe{% endblock %}
+{% block content %}
+
+<div class="page-hero">
+  <div class="container">
+    <h1 class="section-title"><i class="bi bi-bag-heart me-2"></i>My Bag</h1>
+  </div>
+</div>
+
+<div class="container py-5">
+  {% if cart.items.all %}
+  <div class="row g-4">
+    <div class="col-lg-8">
+      {% for item in cart.items.all %}
+      <div class="cart-item">
+        {% if item.product.image %}<img src="{{ item.product.image.url }}" alt="{{ item.product.name }}"/>
+        {% else %}<div style="width:80px;height:80px;background:var(--pink-light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--pink-primary);">&#128156;</div>{% endif %}
+        <div class="flex-grow-1">
+          <p class="brand-tag mb-0">{{ item.product.brand.name }}</p>
+          <p class="product-name mb-1">{{ item.product.name }}</p>
+          <p class="product-price mb-0">${{ item.product.price }}</p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <form method="post" action="/cart/update/{{ item.id }}/" class="d-flex align-items-center gap-1">
+            {% csrf_token %}
+            <input type="number" name="quantity" value="{{ item.quantity }}" min="1" max="{{ item.product.stock }}" style="width:60px;" class="form-control form-control-sm text-center"/>
+            <button type="submit" class="btn btn-sm btn-outline-pink">Update</button>
+          </form>
+          <a href="/cart/remove/{{ item.id }}/" class="btn btn-sm" style="color:#ccc;" onclick="return confirm('Remove this item?')"><i class="bi bi-trash"></i></a>
+        </div>
+        <div class="text-end" style="min-width:80px;">
+          <p class="product-price mb-0">${{ item.get_subtotal }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="col-lg-4">
+      <div class="cart-summary">
+        <h5 style="font-family:'Playfair Display',serif;color:var(--pink-dark);">Order Summary</h5>
+        <hr style="border-color:var(--pink-light);"/>
+        <div class="d-flex justify-content-between mb-2"><span class="text-muted">Subtotal</span><span>${{ cart.get_total }}</span></div>
+        <div class="d-flex justify-content-between mb-2"><span class="text-muted">Shipping</span><span style="color:#2e7d32;">Free</span></div>
+        <hr style="border-color:var(--pink-light);"/>
+        <div class="d-flex justify-content-between mb-4"><strong>Total</strong><strong style="color:var(--pink-dark);font-size:1.2rem;">${{ cart.get_total }}</strong></div>
+        <a href="/checkout/" class="btn btn-pink w-100 py-2"><i class="bi bi-credit-card me-2"></i>Proceed to Checkout</a>
+        <a href="/products/" class="btn btn-outline-pink w-100 mt-2">Continue Shopping</a>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="text-center py-5">
+    <div style="font-size:5rem;color:var(--pink-light);">&#128156;</div>
+    <h4 class="mt-3" style="font-family:'Playfair Display',serif;">Your bag is empty</h4>
+    <p class="text-muted">Discover our luxury collection and add your favourites.</p>
+    <a href="/products/" class="btn btn-pink px-5 mt-2">Shop Now</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% block title %}BagLuxe - Luxury Bags{% endblock %}
+{% block content %}
+
+<!-- Hero -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <p class="hero-subtitle mb-3">&#10022; Curated Luxury Collection</p>
+        <h1 class="hero-title mb-3">Carry the World's<br/><span style="color:var(--pink-dark);">Finest Bags</span></h1>
+        <p class="hero-desc mb-4">Discover authentic luxury handbags from Chanel, Dior, Hermes, Louis Vuitton and more. Every piece tells a story of craftsmanship and elegance.</p>
+        <div class="d-flex gap-3 flex-wrap">
+          <a href="/products/" class="btn btn-pink px-4 py-2">Shop Now</a>
+          <a href="/brands/" class="btn btn-outline-pink px-4 py-2">Our Brands</a>
+        </div>
+      </div>
+      <div class="col-lg-6 text-center mt-4 mt-lg-0">
+        <div style="position:relative;display:inline-block;">
+          <svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="heartGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#fce4ec" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#f8bbd0" stop-opacity="0"/>
+              </radialGradient>
+              <linearGradient id="heartFill" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f48fb1"/>
+                <stop offset="100%" stop-color="#c2185b"/>
+              </linearGradient>
+            </defs>
+            <!-- Glow circle -->
+            <circle cx="160" cy="160" r="150" fill="url(#heartGlow)"/>
+            <!-- Heart shape -->
+            <path d="M160 248 C160 248 60 180 60 112 C60 80 84 58 112 58 C132 58 150 70 160 86 C170 70 188 58 208 58 C236 58 260 80 260 112 C260 180 160 248 160 248Z"
+              fill="url(#heartFill)" opacity="0.18"/>
+            <!-- Inner heart (smaller, more opaque) -->
+            <path d="M160 224 C160 224 82 166 82 112 C82 90 98 74 118 74 C136 74 152 84 160 98 C168 84 184 74 202 74 C222 74 238 90 238 112 C238 166 160 224 160 224Z"
+              fill="url(#heartFill)" opacity="0.35"/>
+            <!-- Core heart -->
+            <path d="M160 200 C160 200 100 155 100 115 C100 97 113 84 128 84 C143 84 155 93 160 106 C165 93 177 84 192 84 C207 84 220 97 220 115 C220 155 160 200 160 200Z"
+              fill="url(#heartFill)" opacity="0.85"/>
+            <!-- Shine -->
+            <ellipse cx="138" cy="102" rx="12" ry="8" fill="white" opacity="0.35" transform="rotate(-30 138 102)"/>
+          </svg>
+        </div>
+        <p class="mt-1" style="color:var(--pink-dark);font-family:'Playfair Display',serif;font-size:1.1rem;letter-spacing:2px;">Elegance. Authenticity. You.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Brands Strip -->
+{% if brands %}
+<section class="py-3" style="background:white;border-bottom:1px solid var(--pink-light);">
+  <div class="container">
+    <div class="d-flex flex-wrap justify-content-center align-items-center gap-4">
+      {% for brand in brands %}
+      <a href="/products/?brand={{ brand.slug }}" class="footer-link" style="font-family:'Playfair Display',serif;font-size:0.95rem;letter-spacing:2px;text-transform:uppercase;">{{ brand.name }}</a>
+      {% if not forloop.last %}<span style="color:var(--pink-light);">&#9679;</span>{% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Featured -->
+{% if featured %}
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+      <div>
+        <p class="section-subtitle mb-1">&#10022; Handpicked for You</p>
+        <h2 class="section-title">Featured Pieces</h2>
+      </div>
+      <a href="/products/" class="btn btn-outline-pink btn-sm">View All</a>
+    </div>
+    <div class="row g-4">
+      {% for product in featured %}
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="product-card">
+          <div class="card-img-wrapper">
+            {% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}"/>
+            {% else %}<div class="d-flex align-items-center justify-content-center h-100" style="font-size:3.5rem;color:var(--pink-primary);">&#128156;</div>{% endif %}
+            <span class="featured-badge">Featured</span>
+            {% if not product.is_in_stock %}<span class="out-of-stock-badge">Sold Out</span>{% endif %}
+          </div>
+          <div class="card-body">
+            <p class="brand-tag mb-1">{{ product.brand.name }}</p>
+            <p class="product-name">{{ product.name }}</p>
+            <p class="product-price mb-2">${{ product.price }}</p>
+            <a href="/products/{{ product.slug }}/" class="btn btn-pink btn-sm w-100">View</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- Why BagLuxe -->
+<section class="py-5" style="background:white;">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-subtitle">&#10022; Why Choose Us</p>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;">The BagLuxe Promise</h2>
+    </div>
+    <div class="row g-4 text-center">
+      <div class="col-md-3"><div style="font-size:2.5rem;color:var(--pink-primary);">&#10003;</div><h6 class="fw-bold mt-2">100% Authentic</h6><p class="text-muted small">Every bag is verified and comes with authenticity certificate.</p></div>
+      <div class="col-md-3"><div style="font-size:2.5rem;color:var(--pink-primary);">&#128230;</div><h6 class="fw-bold mt-2">Secure Packaging</h6><p class="text-muted small">Luxury packaging that protects your precious purchase.</p></div>
+      <div class="col-md-3"><div style="font-size:2.5rem;color:var(--pink-primary);">&#128274;</div><h6 class="fw-bold mt-2">Secure Payment</h6><p class="text-muted small">Your transactions are fully encrypted and protected.</p></div>
+      <div class="col-md-3"><div style="font-size:2.5rem;color:var(--pink-primary);">&#9825;</div><h6 class="fw-bold mt-2">Curated Selection</h6><p class="text-muted small">Only the finest pieces from the world's top fashion houses.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- New Arrivals -->
+{% if new_arrivals %}
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+      <div>
+        <p class="section-subtitle mb-1">&#10022; Just In</p>
+        <h2 class="section-title">New Arrivals</h2>
+      </div>
+      <a href="/products/?sort=newest" class="btn btn-outline-pink btn-sm">See All</a>
+    </div>
+    <div class="row g-4">
+      {% for product in new_arrivals %}
+      <div class="col-6 col-md-3">
+        <div class="product-card">
+          <div class="card-img-wrapper">
+            {% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}"/>
+            {% else %}<div class="d-flex align-items-center justify-content-center h-100" style="font-size:3.5rem;color:var(--pink-primary);">&#128156;</div>{% endif %}
+            {% if not product.is_in_stock %}<span class="out-of-stock-badge">Sold Out</span>{% endif %}
+          </div>
+          <div class="card-body">
+            <p class="brand-tag mb-1">{{ product.brand.name }}</p>
+            <p class="product-name">{{ product.name }}</p>
+            <p class="product-price mb-2">${{ product.price }}</p>
+            <a href="/products/{{ product.slug }}/" class="btn btn-outline-pink btn-sm w-100">View</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% if not user.is_authenticated %}
+<section class="py-5" style="background:linear-gradient(135deg,var(--pink-soft),var(--pink-primary));">
+  <div class="container text-center text-white">
+    <h2 style="font-family:'Playfair Display',serif;font-size:2rem;">Join the BagLuxe Family</h2>
+    <p class="mb-4" style="opacity:0.9;">Create an account to start shopping and track your orders.</p>
+    <a href="/accounts/register/" class="btn btn-light px-5 py-2" style="border-radius:25px;color:var(--pink-dark);font-weight:600;">Create Account</a>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}

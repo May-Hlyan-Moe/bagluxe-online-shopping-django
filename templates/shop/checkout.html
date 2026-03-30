@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}Checkout - BagLuxe{% endblock %}
+{% block content %}
+
+<div class="page-hero">
+  <div class="container">
+    <h1 class="section-title"><i class="bi bi-credit-card me-2"></i>Checkout</h1>
+  </div>
+</div>
+
+<div class="container py-5">
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="auth-card">
+        <h5 style="font-family:'Playfair Display',serif;color:var(--pink-dark);" class="mb-4">Shipping Details</h5>
+        <form method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label class="form-label">Full Name</label>
+            <input type="text" class="form-control" value="{{ user.get_full_name }}" readonly style="background:var(--pink-light);"/>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" value="{{ user.email }}" readonly style="background:var(--pink-light);"/>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Shipping Address *</label>
+            <textarea name="address" class="form-control" rows="4" placeholder="Enter your full shipping address..." required>{{ user.address }}</textarea>
+          </div>
+          <button type="submit" class="btn btn-pink w-100 py-2"><i class="bi bi-check-circle me-2"></i>Place Order</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="cart-summary">
+        <h5 style="font-family:'Playfair Display',serif;color:var(--pink-dark);">Your Order</h5>
+        <hr style="border-color:var(--pink-light);"/>
+        {% for item in cart.items.all %}
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <div>
+            <p class="mb-0 small fw-bold">{{ item.product.name }}</p>
+            <p class="mb-0 text-muted" style="font-size:0.75rem;">{{ item.product.brand.name }} &times; {{ item.quantity }}</p>
+          </div>
+          <span class="small fw-bold">${{ item.get_subtotal }}</span>
+        </div>
+        {% endfor %}
+        <hr style="border-color:var(--pink-light);"/>
+        <div class="d-flex justify-content-between">
+          <strong>Total</strong>
+          <strong style="color:var(--pink-dark);font-size:1.2rem;">${{ cart.get_total }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

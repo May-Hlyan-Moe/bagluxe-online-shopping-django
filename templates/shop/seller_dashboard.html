@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Seller Dashboard - BagLuxe{% endblock %}
+{% block content %}
+
+<div class="page-hero">
+  <div class="container">
+    <p class="section-subtitle mb-1">&#10022; Admin Panel</p>
+    <h1 class="section-title">Seller Dashboard</h1>
+  </div>
+</div>
+
+<div class="container py-5">
+  <div class="row g-4 mb-5">
+    <div class="col-md-3">
+      <div class="stat-card"><div class="stat-number">{{ products|length }}</div><div class="stat-label">Total Products</div></div>
+    </div>
+    <div class="col-md-3">
+      <div class="stat-card"><div class="stat-number">{{ orders|length }}</div><div class="stat-label">Recent Orders</div></div>
+    </div>
+    <div class="col-md-3">
+      <div class="stat-card"><div class="stat-number">{{ buyers }}</div><div class="stat-label">Registered Buyers</div></div>
+    </div>
+    <div class="col-md-3">
+      <div class="stat-card">
+        <div class="stat-number" style="font-size:1rem;"><a href="/admin/" style="color:var(--pink-dark);text-decoration:none;">Open Admin Panel</a></div>
+        <div class="stat-label">Full Control</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-7">
+      <div class="dashboard-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 style="font-family:'Playfair Display',serif;color:var(--pink-dark);">Products</h5>
+          <a href="/admin/shop/product/add/" class="btn btn-pink btn-sm">+ Add Product</a>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-sm" style="font-size:0.85rem;">
+            <thead style="background:var(--pink-light);">
+              <tr><th>Name</th><th>Brand</th><th>Price</th><th>Stock</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody>
+              {% for product in products %}
+              <tr>
+                <td>{{ product.name|truncatechars:25 }}</td>
+                <td>{{ product.brand.name }}</td>
+                <td>${{ product.price }}</td>
+                <td>{{ product.stock }}</td>
+                <td>{% if product.is_active %}<span style="color:#2e7d32;font-size:0.75rem;">&#9679; Active</span>{% else %}<span style="color:#999;font-size:0.75rem;">&#9679; Inactive</span>{% endif %}</td>
+                <td><a href="/admin/shop/product/{{ product.id }}/change/" class="btn btn-sm btn-outline-pink">Edit</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-5">
+      <div class="dashboard-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 style="font-family:'Playfair Display',serif;color:var(--pink-dark);">Recent Orders</h5>
+          <a href="/admin/shop/order/" class="btn btn-outline-pink btn-sm">View All</a>
+        </div>
+        {% for order in orders %}
+        <div class="d-flex justify-content-between align-items-center py-2" style="border-bottom:1px solid var(--pink-light);">
+          <div>
+            <p class="mb-0 small fw-bold">#{{ order.id }} - {{ order.user.username }}</p>
+            <p class="mb-0 text-muted" style="font-size:0.75rem;">{{ order.created_at|date:"M j, Y" }}</p>
+          </div>
+          <div class="text-end">
+            <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+            <p class="mb-0 small fw-bold mt-1">${{ order.total_price }}</p>
+          </div>
+        </div>
+        {% empty %}
+        <p class="text-muted small">No orders yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

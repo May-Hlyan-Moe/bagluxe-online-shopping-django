@@ -1,0 +1,197 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{% if subtitle %}{{ subtitle }} | {% endif %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+  <a href="{% url 'admin:index' %}" style="color: #c2185b; text-decoration: none; font-family: 'Playfair Display', serif;">
+    <span style="font-size: 1.5rem;">&#9825;</span> {{ site_header|default:_('Django administration') }}
+  </a>
+</h1>
+{% endblock %}
+
+{% block extrastyle %}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --primary: #c2185b;
+    --primary-fg: #fff;
+    --body-fg: #2c2c2c;
+    --body-quiet-color: #666;
+    --body-loud-color: #000;
+    --header-color: #fce4ec;
+    --header-branding-color: #c2185b;
+    --header-bg: linear-gradient(135deg, #fff0f5, #fce4ec);
+    --header-link-color: #c2185b;
+    --breadcrumbs-fg: #c2185b;
+    --breadcrumbs-link-fg: #c2185b;
+    --breadcrumbs-bg: #fff0f5;
+    --link-fg: #c2185b;
+    --link-hover-color: #880e4f;
+    --link-selected-fg: #880e4f;
+    --hairline-color: #fce4ec;
+    --border-color: #fce4ec;
+    --error-fg: #ba2121;
+    --message-success-bg: #e8f5e9;
+    --message-warning-bg: #fff8e1;
+    --message-error-bg: #ffebee;
+    --darkened-bg: #fff9fb;
+    --selected-bg: #fce4ec;
+    --selected-row: #fff0f5;
+    --button-fg: #fff;
+    --button-bg: #c2185b;
+    --button-hover-bg: #880e4f;
+    --default-button-bg: #e8a0b4;
+    --default-button-hover-bg: #c2185b;
+    --close-button-bg: #888;
+    --close-button-hover-bg: #666;
+    --delete-button-bg: #ba2121;
+    --delete-button-hover-bg: #a41515;
+    --object-tools-fg: #fff;
+    --object-tools-bg: #c2185b;
+    --object-tools-hover-bg: #880e4f;
+  }
+  
+  #header { 
+    background: linear-gradient(135deg, #fff0f5, #fce4ec) !important;
+    border-bottom: 2px solid #e8a0b4;
+  }
+  
+  #site-name a {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 1.4rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px;
+  }
+  
+  .module h2, .module caption, .inline-group h2 {
+    background: linear-gradient(135deg, #fce4ec, #f8bbd0) !important;
+    color: #c2185b !important;
+    font-family: 'Playfair Display', serif !important;
+  }
+  
+  a:link, a:visited {
+    color: #c2185b !important;
+  }
+  
+  a:hover, a:active {
+    color: #880e4f !important;
+  }
+  
+  .button, input[type=submit], input[type=button], .submit-row input, button {
+    background: linear-gradient(135deg, #e8a0b4, #c2185b) !important;
+    border: none !important;
+    border-radius: 20px !important;
+    padding: 8px 20px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.5px !important;
+    transition: all 0.3s !important;
+  }
+  
+  .button:hover, input[type=submit]:hover, input[type=button]:hover, .submit-row input:hover, button:hover {
+    background: linear-gradient(135deg, #c2185b, #880e4f) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(194, 24, 91, 0.3) !important;
+  }
+  
+  .button.default, input[type=submit].default, .submit-row input.default {
+    background: linear-gradient(135deg, #c2185b, #880e4f) !important;
+  }
+  
+  .deletelink, .deletelink-box a {
+    background: #ba2121 !important;
+  }
+  
+  .deletelink:hover, .deletelink-box a:hover {
+    background: #a41515 !important;
+  }
+  
+  .object-tools a {
+    background: linear-gradient(135deg, #e8a0b4, #c2185b) !important;
+    border-radius: 20px !important;
+    padding: 8px 20px !important;
+    font-weight: 600 !important;
+  }
+  
+  .object-tools a:hover {
+    background: linear-gradient(135deg, #c2185b, #880e4f) !important;
+  }
+  
+  .selector-chosen h2 {
+    background: linear-gradient(135deg, #fce4ec, #f8bbd0) !important;
+    color: #c2185b !important;
+  }
+  
+  .calendar caption, .calendarbox h2 {
+    background: linear-gradient(135deg, #fce4ec, #f8bbd0) !important;
+    color: #c2185b !important;
+  }
+  
+  .calendar td a:hover, .timelist a:hover {
+    background: #fce4ec !important;
+    color: #c2185b !important;
+  }
+  
+  .paginator a:link, .paginator a:visited {
+    background: #fff !important;
+    border: 1px solid #fce4ec !important;
+    color: #c2185b !important;
+  }
+  
+  .paginator a:hover {
+    background: #fce4ec !important;
+  }
+  
+  .paginator .this-page {
+    background: #c2185b !important;
+    color: #fff !important;
+    border: 1px solid #c2185b !important;
+  }
+  
+  #changelist-filter li.selected a {
+    color: #c2185b !important;
+    font-weight: 700;
+  }
+  
+  .errornote {
+    background: #ffebee !important;
+    border: 1px solid #ef9a9a !important;
+    color: #c62828 !important;
+  }
+  
+  .success, .successnote {
+    background: #e8f5e9 !important;
+    border: 1px solid #a5d6a7 !important;
+    color: #2e7d32 !important;
+  }
+  
+  .warning, .warningnote {
+    background: #fff8e1 !important;
+    border: 1px solid #ffe082 !important;
+    color: #e65100 !important;
+  }
+  
+  fieldset.module {
+    background: #fff !important;
+    border: 1px solid #fce4ec !important;
+    border-radius: 12px !important;
+  }
+  
+  .dashboard .module table th {
+    background: #fce4ec !important;
+    color: #c2185b !important;
+  }
+  
+  tr:hover {
+    background: #fff9fb !important;
+  }
+  
+  .row1 {
+    background: #fff !important;
+  }
+  
+  .row2 {
+    background: #fff9fb !important;
+  }
+</style>
+{% endblock %}

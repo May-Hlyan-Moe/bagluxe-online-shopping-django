@@ -1,0 +1,239 @@
+/* BagLuxe Admin - Pink Theme Override for Jazzmin */
+
+:root {
+  --pink: #c2185b;
+  --pink-light: #fce4ec;
+  --pink-soft: #f8bbd0;
+  --pink-dark: #880e4f;
+}
+
+/* Brand / logo area */
+.brand-link {
+  background: linear-gradient(135deg, #fff0f5, #fce4ec) !important;
+  border-bottom: 1px solid var(--pink-soft) !important;
+  font-family: 'Georgia', serif !important;
+  font-size: 1.2rem !important;
+  color: var(--pink) !important;
+}
+
+.brand-link:hover, .brand-link:focus {
+  background: var(--pink-light) !important;
+}
+
+.brand-link .brand-image {
+  display: none;
+}
+
+/* Sidebar */
+.main-sidebar, .sidebar {
+  background: #fff9fb !important;
+  border-right: 1px solid var(--pink-soft) !important;
+}
+
+.sidebar .nav-sidebar .nav-item .nav-link {
+  color: #555 !important;
+  border-radius: 8px !important;
+  margin: 2px 8px !important;
+  transition: all 0.2s !important;
+}
+
+.sidebar .nav-sidebar .nav-item .nav-link:hover,
+.sidebar .nav-sidebar .nav-item .nav-link.active {
+  background: var(--pink-light) !important;
+  color: var(--pink) !important;
+}
+
+.sidebar .nav-sidebar .nav-item .nav-link.active {
+  font-weight: 700 !important;
+}
+
+.nav-sidebar .nav-treeview {
+  background: transparent !important;
+}
+
+/* Navbar top */
+.main-header.navbar {
+  background: white !important;
+  border-bottom: 1px solid var(--pink-soft) !important;
+  box-shadow: 0 2px 10px rgba(232,160,180,0.15) !important;
+}
+
+.main-header .nav-link {
+  color: #555 !important;
+}
+
+.main-header .nav-link:hover {
+  color: var(--pink) !important;
+}
+
+/* Content header */
+.content-header {
+  background: linear-gradient(135deg, #fff0f5, #fce4ec) !important;
+  border-bottom: 1px solid var(--pink-soft) !important;
+  padding: 15px 20px !important;
+}
+
+.content-header h1 {
+  color: var(--pink) !important;
+  font-family: 'Georgia', serif !important;
+  font-size: 1.4rem !important;
+}
+
+/* Cards / boxes */
+.card {
+  border: 1px solid var(--pink-soft) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 12px rgba(232,160,180,0.12) !important;
+}
+
+.card-header {
+  background: linear-gradient(135deg, #fff0f5, #fce4ec) !important;
+  border-bottom: 1px solid var(--pink-soft) !important;
+  color: var(--pink) !important;
+  font-weight: 600 !important;
+  border-radius: 12px 12px 0 0 !important;
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #e8a0b4, var(--pink)) !important;
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 6px 18px !important;
+  font-weight: 600 !important;
+  transition: all 0.3s !important;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark)) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(194,24,91,0.3) !important;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #81c784, #388e3c) !important;
+  border: none !important;
+  border-radius: 20px !important;
+}
+
+.btn-danger {
+  border-radius: 20px !important;
+}
+
+.btn-warning {
+  border-radius: 20px !important;
+}
+
+/* Save buttons row */
+.submit-row {
+  background: var(--pink-light) !important;
+  border-top: 1px solid var(--pink-soft) !important;
+  border-radius: 0 0 12px 12px !important;
+  padding: 12px 16px !important;
+}
+
+/* Tables */
+#result_list thead th {
+  background: linear-gradient(135deg, #fff0f5, #fce4ec) !important;
+  color: var(--pink) !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid var(--pink-soft) !important;
+}
+
+#result_list tbody tr:hover {
+  background: #fff9fb !important;
+}
+
+#result_list tbody tr.selected {
+  background: var(--pink-light) !important;
+}
+
+/* Links */
+a, a:visited {
+  color: var(--pink) !important;
+}
+
+a:hover {
+  color: var(--pink-dark) !important;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  background: transparent !important;
+}
+
+.breadcrumb-item a {
+  color: var(--pink) !important;
+}
+
+/* Info boxes on dashboard */
+.info-box {
+  border-radius: 12px !important;
+  box-shadow: 0 2px 12px rgba(232,160,180,0.15) !important;
+}
+
+.info-box-icon {
+  border-radius: 12px 0 0 12px !important;
+  background: linear-gradient(135deg, #e8a0b4, var(--pink)) !important;
+}
+
+/* Search bar */
+#searchbar {
+  border: 1.5px solid var(--pink-soft) !important;
+  border-radius: 20px !important;
+  padding: 6px 16px !important;
+}
+
+#searchbar:focus {
+  border-color: var(--pink) !important;
+  box-shadow: 0 0 0 0.2rem rgba(232,160,180,0.25) !important;
+}
+
+/* Filters sidebar */
+#changelist-filter {
+  background: #fff9fb !important;
+  border-left: 1px solid var(--pink-soft) !important;
+  border-radius: 12px !important;
+}
+
+#changelist-filter h2 {
+  background: linear-gradient(135deg, #fff0f5, #fce4ec) !important;
+  color: var(--pink) !important;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 10px 15px !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 1px !important;
+}
+
+#changelist-filter li.selected a {
+  color: var(--pink) !important;
+  font-weight: 700 !important;
+}
+
+/* Pagination */
+.paginator a {
+  border: 1px solid var(--pink-soft) !important;
+  border-radius: 8px !important;
+  color: var(--pink) !important;
+  padding: 4px 10px !important;
+  margin: 0 2px !important;
+}
+
+.paginator a:hover {
+  background: var(--pink-light) !important;
+}
+
+.paginator .this-page {
+  background: var(--pink) !important;
+  color: white !important;
+  border-radius: 8px !important;
+  padding: 4px 10px !important;
+}
+
+/* Footer */
+.main-footer {
+  background: linear-gradient(135deg, #fff0f5, #fce4ec) !important;
+  border-top: 1px solid var(--pink-soft) !important;
+  color: #888 !important;
+  font-size: 0.8rem !important;
+}

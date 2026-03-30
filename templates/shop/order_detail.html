@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Order #{{ order.id }} - BagLuxe{% endblock %}
+{% block content %}
+
+<div class="page-hero">
+  <div class="container">
+    <h1 class="section-title">Order #{{ order.id }}</h1>
+    <p class="text-muted">Placed on {{ order.created_at|date:"F j, Y" }}</p>
+  </div>
+</div>
+
+<div class="container py-5">
+  <div class="row g-4">
+    <div class="col-lg-8">
+      <div class="dashboard-card mb-4">
+        <h5 style="font-family:'Playfair Display',serif;color:var(--pink-dark);" class="mb-3">Items Ordered</h5>
+        {% for item in order.items.all %}
+        <div class="d-flex justify-content-between align-items-center py-2" style="border-bottom:1px solid var(--pink-light);">
+          <div>
+            <p class="mb-0 fw-bold">{{ item.product_name }}</p>
+            <p class="text-muted small mb-0">Qty: {{ item.quantity }} &times; ${{ item.price }}</p>
+          </div>
+          <span class="fw-bold" style="color:var(--pink-dark);">${{ item.get_subtotal }}</span>
+        </div>
+        {% endfor %}
+        <div class="d-flex justify-content-between mt-3">
+          <strong>Total</strong>
+          <strong style="color:var(--pink-dark);font-size:1.2rem;">${{ order.total_price }}</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="cart-summary">
+        <h5 style="font-family:'Playfair Display',serif;color:var(--pink-dark);">Order Info</h5>
+        <hr style="border-color:var(--pink-light);"/>
+        <p class="small mb-1"><strong>Status:</strong></p>
+        <span class="status-badge status-{{ order.status }}">{{ order.get_status_display }}</span>
+        <hr style="border-color:var(--pink-light);"/>
+        <p class="small mb-1"><strong>Shipping Address:</strong></p>
+        <p class="text-muted small">{{ order.shipping_address }}</p>
+        <hr style="border-color:var(--pink-light);"/>
+        <a href="/orders/" class="btn btn-outline-pink w-100">Back to Orders</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
